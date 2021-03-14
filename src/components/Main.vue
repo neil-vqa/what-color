@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  <h1 class="text-5xl">What Color</h1>
   <router-view/>
 </template>
 
