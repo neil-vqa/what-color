@@ -1,17 +1,14 @@
 <template>
-  <Main />
+  <router-view></router-view>
 </template>
 
-<script>
-import Main from '@/components/Main.vue';
-
-export default {
-  components: {
-    Main
-  }
-}
-</script>
-
 <style>
+body {
+  background-color: aqua;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 </style>

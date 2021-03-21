@@ -38,86 +38,30 @@
 
 <script>
 import convert from 'color-convert';
-
-import Navbar from './Navbar.vue'
+import { hueWheel, redShades, grayShades, pinkShades } from '../utils/colorNames';
 
 export default {
-  components: {
-    Navbar
-  },
   data() {
     return {
       inputRGB: '',
       inputHex: '',
       inputColor: '',
       outputName: '',
-      hueWheel: [
-        {sector: 0, color: 'red'},
-        {sector: 30, color: 'orange'},
-        {sector: 50, color: 'yellow/gold'},
-        {sector: 60, color: 'yellow'},
-        {sector: 75, color: 'yellow-green'},
-        {sector: 120, color: 'green'},
-        {sector: 160, color: 'green'},
-        {sector: 180, color: 'cyan/blue-green'},
-        {sector: 197, color: 'blue'},
-        {sector: 240, color: 'blue'},
-        {sector: 270, color: 'violet'},
-        {sector: 285, color: 'purple'},
-        {sector: 300, color: 'magenta/fuchsia'},
-        {sector: 330, color: 'rose'},
-        {sector: 350, color: 'pink'},
-        {sector: 360, color: 'red'},
-      ],
-      redShades: [
-        'red',
-        'lightsalmon',
-        'lightcoral',
-        'salmon',
-        'darksalmon',
-        'tomato',
-        'indianred',
-        'orangered',
-        'crimson',
-        'firebrick',
-        'darkred',
-        'maroon'
-      ],
-      grayShades: [
-        'grey',
-        'gainsboro',
-        'lightgrey',
-        'silver',
-        'darkgrey',
-        'lightslategrey',
-        'slategrey',
-        'dimgrey',
-        'ghostwhite',
-        'whitesmoke',
-      ],
-      pinkShades: [
-        'pink',
-        'mistyrose',
-        'lightpink',
-        'hotpink',
-        'palevioletred',
-        'deeppink'
-      ],
     }
   },
   computed: {
     convertColor() {
       this.inputColor = this.inputHex;
-      let sectors = this.hueWheel.map(item => item.sector);
+      let sectors = hueWheel.map(item => item.sector);
       let hue = convert.hex.hsl(this.inputColor)[0];
 
       if(hue == 0) {
         let keyword = convert.hex.keyword(this.inputColor);
-        if(this.redShades.includes(keyword)) {
+        if(redShades.includes(keyword)) {
           return 'red';
-        } else if(this.grayShades.includes(keyword)) {
+        } else if(grayShades.includes(keyword)) {
           return 'gray';
-        } else if(this.pinkShades.includes(keyword)) {
+        } else if(pinkShades.includes(keyword)) {
           return 'pink';
         } else if(keyword == 'white') {
           return 'white';
@@ -133,14 +77,3 @@ export default {
   },
 }
 </script>
-
-<style>
-body {
-  background-color: aqua;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-</style>
