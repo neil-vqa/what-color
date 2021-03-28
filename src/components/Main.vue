@@ -72,22 +72,24 @@
         </svg>
       </button>
     </div>
-    <section class="relative bg-white w-11/12 h-full md:flex items-center justify-center overflow-hidden  rounded-2xl">
-      <div class="hidden md:block absolute top-0 right-0 m-2">
-        <div class="flex flex-col space-y-3 h-36 w-36 rounded-full items-center justify-center bg-gray-200" :style="`border: 7px solid #${inputHex}`">
+    <section class="relative bg-white w-11/12 h-full md:flex items-center justify-center overflow-hidden rounded-2xl">
+      <div class="hidden md:block absolute top-0 right-0 m-2 z-10">
+        <div class="flex flex-col space-y-3 h-24 w-24 2xl:h-36 2xl:w-36 rounded-full items-center justify-center bg-gray-200" :style="`border: 7px solid #${inputHex}`">
           <span class="color-name font-display text-xl break-words" :style="`color: #${inputHex}`">{{convertColor}}</span>
           <span class="text-gray-500 text-xs">({{convertColor}})</span>
         </div>
       </div>
-      <ImgColorPicker
-        v-if="image"
-        :key="pickerKey"
-        :width="700"
-        :showColor="false"
-        @setColor="setColor"
-        :imagesrc="image"
-        class="overflow-scroll">
-      </ImgColorPicker>
+      <div class="max-w-xl md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl max-h-full mx-auto overflow-auto">
+        <ImgColorPicker
+          v-if="image"
+          :key="pickerKey"
+          :width="imageWidth"
+          :showColor="false"
+          @setColor="setColor"
+          :imagesrc="image"
+          class="overflow-auto">
+        </ImgColorPicker>
+      </div>
     </section>
   </div>
   <!-- end modal -->
@@ -100,7 +102,7 @@ import ImgColorPicker from 'vue-img-color-picker';
 
 export default {
   components: {
-    ImgColorPicker
+    ImgColorPicker,
   },
   data() {
     return {
@@ -108,6 +110,7 @@ export default {
       inputHex: null,
       inputColor: '',
       image: null,
+      imageWidth: null,
       expandImage: false,
       pickerKey: 0,
     }
@@ -150,6 +153,12 @@ export default {
       let reader = new FileReader();
       reader.onload = () => {
         this.image = reader.result;
+
+        let imageData = new Image();
+        imageData.src = reader.result;
+        imageData.onload = () => {
+          this.imageWidth = imageData.width
+        }
       }
 
       reader.readAsDataURL(file);
